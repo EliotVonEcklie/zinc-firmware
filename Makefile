@@ -23,7 +23,7 @@ endif
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 $(PROGRAM): $(SOURCES:.c=.o)
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) $(LDFLAGS) -o $@.bin $^
 
 clean:
 	$(RM) $(SOURCES:.c=.o) $(SOURCES:.c=.d) $(PROGRAM).bin $(PROGRAM).map
