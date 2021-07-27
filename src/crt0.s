@@ -1,7 +1,7 @@
 ;
 ;   H4ck Software 2021
 ;
-;   <src/crt0.asm>
+;   <src/crt0.s>
 ;
 ;   Init Script.
 ;
