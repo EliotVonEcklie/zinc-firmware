@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+    ],
+    "settings": {
+        "files.associations": {
+            "*.?pp": "cpp",
+            "*.s65": "ca65",
+            "screen.h": "c"
+        }
+    }
+}
