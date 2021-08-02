@@ -1,0 +1,165 @@
+#################################
+HS-65P64 Microprocessor Reference
+#################################
+
+Registers
+=========
+
++-------------+-------------+-----------------+
+| Mnemonic    | Size        | Type            |
++=============+=============+=================+
+| A           | 64-Bits     | Accumulator     |
++-------------+-------------+-----------------+
+| B           | 64-Bits     | Accumulator     |
++-------------+-------------+-----------------+
+| C           | 64-Bits     | Accumulator     |
++-------------+-------------+-----------------+
+| X           | 64-Bits     | Index           |
++-------------+-------------+-----------------+
+| Y           | 64-Bits     | Index           |
++-------------+-------------+-----------------+
+| Z           | 64-Bits     | Index           |
++-------------+-------------+-----------------+
+| D           | 32-Bits     | Index           |
++-------------+-------------+-----------------+
+| SP          | 16-Bits     | Index           |
++-------------+-------------+-----------------+
+| DC          | 12-Bits     | Index           |
++-------------+-------------+-----------------+
+| IR          | 16-Bits     | Internal        |
++-------------+-------------+-----------------+
+| PC          | 36-Bits     | Internal        |
++-------------+-------------+-----------------+
+| SR          | 16-Bits     | Status          |
++-------------+-------------+-----------------+
+| R [1]_      | 128-Bits    | General Purpose |
++-------------+-------------+-----------------+
+| V [1]_ [2]_ | 128-Bits    | Vector          |
++-------------+-------------+-----------------+
+
+.. [1] : Register set of 32 registers. 
+.. [2] : Not yet implemented.
+
+A, B and C Registers
+--------------------
+
+The accumulators. This are the math registers. They store one of two operands or the result of most arithmetic and logical operations.
+
+X, Y and Z Registers
+--------------------
+
+The index registers. These can be used to reference memory, to pass data to memory, or as counters for loops.
+
+Direct (D)
+----------------
+
+Direct page register, used for direct page addressing modes. Holds the memory bank address of the data the CPU is accessing.
+
+Stack Pointer (SP)
+------------------
+
+The stack pointer, points to the next available(unused) location on the stack.
+
+R Register Set
+--------------
+
+Lorem Ipsum
+
+V Register Set
+--------------
+
+Lorem Ipsum
+
+Status Register (SR)
+--------------------
+
+Holds various important flags, results of tests and 65P64 processing states. See below.
+
+Instruction Register (IR)
+-------------------------
+
+Lorem Ipsum
+
+Program Counter (PC) Register
+-----------------------------
+
+Holds the memory address of the current CPU instruction
+
+Data Counter (DC) Register
+--------------------------
+
+Lorem Ipsum
+
+Assembler Syntax
+================
+
+Operators
+------------
+
+Low Half (>)
+++++++++++++
+
+Operator used to access the most significant half of the register.
+Example:
+
+.. code-block:: asm
+    :force:
+
+    mov %a>, %r01>    ; Access the least significant dword of `%a` and `%r01`.
+
+High Half (<)
++++++++++++++
+
+Operator used to access the least significant half of the register.
+
+.. code-block:: asm
+    :force:
+
+    mov %a<, %r01<   ; Access the most significant dword of `%a` and `%r01`.
+
+Size (:)
+++++++++
+
+Operator used to set access size of registers, can be used as a suffix to an instruction or an operand.
+When used in an instruction, it sets the size of every operand. When used in an operand, it can override the size set in its instruction.
+Examples:
+
+.. code-block:: asm
+    :force:
+
+    mov:16 $1000, %a    ; In an instruction, the move operation is performed only
+                        ; with the least significant 16 bits of each operand.
+    mov %a<, $1000:32   ; In a register operand (Here `%a` is 64-bits long,
+                        ; by using only its high half, we have implicitly
+                        ; set its size to 32-bits).
+    mov %a<, $1000:16   ; Here, the source operand is longer than the destination,
+                        ; the assembler behaviour is to set `$1000` to `%a:32>`
+                        ; (the lower half of 32-bit `%a`).
+
+Instructions
+============
+
+Arithmetic
+----------
+
+ADD (ADDition)
+++++++++++++++
+
+SUB (SUBstraction)
+++++++++++++++++++
+
+MUL (MULtiply)
+++++++++++++++
+
+DIV (DIVide)
+++++++++++++
+
+- mov (MOVe)
+- stp (SToP)
+- swpl (SWitch Privilege Level)
+- mapp (MAP Page)
+- uloadp (UnLOAD Page)
+- allocp (ALLOCate Page)
+- freep (FREE Page)
+- rts (ReTurn from Subroutine)
+- rti (ReTurn from Interrupt)
